@@ -1,5 +1,7 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+
 function ItemCount({ stock, initial, onAdd }) {
+
     const [count, setCount] = useState(initial);
 
     const adicionar = () => {
@@ -9,37 +11,36 @@ function ItemCount({ stock, initial, onAdd }) {
     };
 
     const remover = () => {
-        if (count > 0) {
+        if (count > 1) {
           setCount(count - 1);
         }
     };
 
     const handleOnAdd = () => {
-        if (stock > 0) {
+        if (stock > 0 && count > 0) {
             onAdd(count);
         }
     };
 
     return(
         <div>
+             <h2>{count}</h2>
             <button 
                 onClick={remover}
-                disabled={count===0}
+                disabled={count === 1}
             >
                 -
             </button>
-            <h2>{count}</h2>
-            
             <button
                 onClick={adicionar}
-                disabled={count>=stock}
+                disabled={count >= stock}
             >
                 +
             </button>
-
+            <br></br>
             <button
-                onAdd={handleOnAdd}
-                disabled={stock===0}
+                onClick={handleOnAdd}
+                disabled={stock === 0 || count === 0}
             >
                 Adicionar ao carrinho
             </button>
@@ -47,3 +48,4 @@ function ItemCount({ stock, initial, onAdd }) {
     );
 }
 
+export default ItemCount;

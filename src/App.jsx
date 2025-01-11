@@ -10,12 +10,27 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [cart, setCart] = useState([]);
+
+  const handleOnAdd = (quantity) => {
+    setCart([...cart, { id: 1, quantity }]);
+    console.log(`Item adicionado ao carrinho: Quantidade ${quantity}`);
+  };
 
   return (
     <><>
       <div>
-       <ItemCount></ItemCount>
+      <ItemCount stock={5} initial={0} onAdd={handleOnAdd}/>
       </div>
+
+      <div>
+        <h2>Carrinho:</h2>
+        {cart.map((item, index) => (
+          <div key={index}>Item {item.id}: Quantidade {item.quantity}</div>
+        ))}
+      </div>
+
+
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
