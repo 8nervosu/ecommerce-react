@@ -4,21 +4,33 @@ import viteLogo from '/vite.svg'
 import Header from './components/menu/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from './components/saudacao/theme';
+import ItemCount from './components/body/ItemCount';
 import './App.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
+  const [cart, setCart] = useState([]);
+
+  const handleOnAdd = (quantity) => {
+    setCart([...cart, { id: 1, quantity }]);
+    console.log(`Item adicionado ao carrinho: Quantidade ${quantity}`);
+  };
 
   return (
     <><>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <ItemCount stock={5} initial={0} onAdd={handleOnAdd}/>
       </div>
+
+      <div>
+        <h2>Carrinho:</h2>
+        {cart.map((item, index) => (
+          <div key={index}>Item {item.id}: Quantidade {item.quantity}</div>
+        ))}
+      </div>
+
+
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
